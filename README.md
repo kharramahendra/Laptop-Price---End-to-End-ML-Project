@@ -15,30 +15,30 @@
 
 
 
-MLFLOW_TRACKING_URI=https://dagshub.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.mlflow \
-MLFLOW_TRACKING_USERNAME=kharramahendra \
-MLFLOW_TRACKING_PASSWORD=25511b164852982b155d2aeec465a612062ab5cf \
+MLFLOW_TRACKING_URI="your project uri" \
+MLFLOW_TRACKING_USERNAME="your name" \
+MLFLOW_TRACKING_PASSWORD="your password" \
 python script.py
 
 
 <!-- for bash -->
-export MLFLOW_TRACKING_URI=https://dagshub.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.mlflow
+export MLFLOW_TRACKING_URI=project uri
 
-export MLFLOW_TRACKING_USERNAME=kharramahendra 
+export MLFLOW_TRACKING_USERNAME=your name 
 
-export MLFLOW_TRACKING_PASSWORD=25511b164852982b155d2aeec465a612062ab5cf
+export MLFLOW_TRACKING_PASSWORD=password
 
 
 <!-- for windows  -->
-set MLFLOW_TRACKING_URI=https://dagshub.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.mlflow
+set MLFLOW_TRACKING_URI=project uri
 
-set MLFLOW_TRACKING_USERNAME=kharramahendra 
+set MLFLOW_TRACKING_USERNAME=your name 
 
-set MLFLOW_TRACKING_PASSWORD=25511b164852982b155d2aeec465a612062ab5cf
+set MLFLOW_TRACKING_PASSWORD=password
 
 
 
 <!-- for notebook -->
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="kharramahendra"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="25511b164852982b155d2aeec465a612062ab5cf"
+os.environ["MLFLOW_TRACKING_URI"]="uri"
+os.environ["MLFLOW_TRACKING_USERNAME"]="your name"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="your password"
