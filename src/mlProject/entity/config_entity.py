@@ -31,3 +31,13 @@ class ModelTrainerConfig:
     algorithm: str
     n_neighbors: float
     weights: str
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    transformer_path: Path
+    model_path: Path
+    all_params: dict
+    metric_file_name: Path
+    target_column: str
+    mlflow_uri: str

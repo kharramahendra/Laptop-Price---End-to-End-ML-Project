@@ -25,3 +25,15 @@ data_transformation:
 model_trainer:
   root_dir: artifacts/model_trainer
   model_name: model.joblib
+
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  # x_train_path: artifacts/data_transformation/test.csv
+  # x_test_path: artifacts/data_transformation/test.csv
+  # y_train_path: artifacts/data_transformation/test.csv
+  # y_test_path: artifacts/data_transformation/test.csv
+  transformer_path: artifacts/data_transformation/transformer.pkl
+  model_path: artifacts/model_trainer/model.joblib
+  metric_file_name: artifacts/model_evaluation/metrics.json
+

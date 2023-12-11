@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ten/Desktop/Laptop_Price/mlruns/0/e1a454b87a8f46f49ab5341d6fad8942/artifacts
+end_time: 1702271333441
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e1a454b87a8f46f49ab5341d6fad8942
+run_name: nimble-chimp-246
+run_uuid: e1a454b87a8f46f49ab5341d6fad8942
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1702271325785
+status: 3
+tags: []
+user_id: ten
