@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ten/Desktop/Laptop_Price/mlruns/0/41ea549c860f41069025285b27f7f85a/artifacts
+end_time: 1702296831268
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 41ea549c860f41069025285b27f7f85a
+run_name: casual-goose-807
+run_uuid: 41ea549c860f41069025285b27f7f85a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1702296825091
+status: 3
+tags: []
+user_id: ten

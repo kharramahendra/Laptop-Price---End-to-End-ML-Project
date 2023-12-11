@@ -37,6 +37,7 @@ set MLFLOW_TRACKING_USERNAME=kharramahendra
 set MLFLOW_TRACKING_PASSWORD=25511b164852982b155d2aeec465a612062ab5cf
 
 
+
 <!-- for notebook -->
 os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.mlflow"
 os.environ["MLFLOW_TRACKING_USERNAME"]="kharramahendra"
