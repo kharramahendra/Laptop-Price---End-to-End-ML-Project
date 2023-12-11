@@ -63,6 +63,7 @@ def index():
             return 'something is wrong'
 
     else:
+        # all good
         return render_template('index.html')
 
 
