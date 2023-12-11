@@ -1,0 +1,4 @@
+KNeighborsRegressor:
+  algorithm: kd_tree
+  n_neighbors: 7
+  weights: distance

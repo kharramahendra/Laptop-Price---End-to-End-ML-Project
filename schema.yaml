@@ -1,0 +1,25 @@
+COLUMNS:
+  brand : object
+  price : int64
+  spec_rating : float64
+  Ram : object
+  ROM : object
+  ROM_type : object
+  display_size : float64
+  resolution_width : float64
+  resolution_height : float64
+  OS : object
+  warranty : int64
+  gpu_type : object
+  cpu_core : int64
+  cpu_threads : int64
+  processor_brand : object
+  processor_gen : object
+  processor_version : object
+
+
+
+
+TARGET_COLUMN:
+  name: price
+  

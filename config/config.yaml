@@ -1,0 +1,27 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://github.com/kharramahendra/Data-Science-Learning-Codes/raw/main/data.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+
+data_validation:
+  root_dir: artifacts/data_validation
+  unzip_data_dir: artifacts/data_ingestion/data.csv
+  preprocessed_data: artifacts/data_validation/preprocessed_data.csv
+  STATUS_FILE: artifacts/data_validation/status.txt
+
+
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_validation/preprocessed_data.csv
+  transformer_path: artifacts/data_transformation/transformer.pkl
+
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  model_name: model.joblib
