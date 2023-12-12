@@ -13,4 +13,5 @@ types-PyYAML
 Flask
 Flask-Cors
 plotly.express
+flask-cors
 -e .
