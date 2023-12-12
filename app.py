@@ -9,6 +9,8 @@ from flask_cors import CORS
 app = Flask(__name__) # initializing a flask app
 CORS(app)
 
+
+
 @app.route('/',methods=['GET'])  # route to display the home page
 def homePage():
     return render_template("index.html")
