@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ten/Desktop/Laptop_Price/mlruns/0/5eaacb004db54c8caf1d4e56fb02d899/artifacts
+end_time: 1702433794355
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5eaacb004db54c8caf1d4e56fb02d899
+run_name: charming-quail-699
+run_uuid: 5eaacb004db54c8caf1d4e56fb02d899
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1702433789564
+status: 3
+tags: []
+user_id: ten

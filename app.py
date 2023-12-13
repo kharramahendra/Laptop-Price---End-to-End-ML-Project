@@ -28,39 +28,40 @@ def index():
         try:
             #  reading the inputs given by the user
             # Get JSON data from the request
-            data = request.get_json()
+            # data = request.get_json()
 
             logger.info("before")
-            brand = data.get('brand')
-            spec_rating = int(data.get('spec_rating'))
-            Ram = int(data.get('Ram'))
-            ROM = int(data.get('ROM'))
-            ROM_type = int(data.get('ROM_type'))
-            display_size = float(data.get('display_size'))
-            resolution_width = float(data.get('resolution_width'))
-            resolution_height = float(data.get('resolution_height'))
-            OS = data.get('OS')
-            warranty = int(data.get('warranty'))
-            gpu_type = data.get('gpu_type')
-            cpu_core = int(data.get('cpu_core'))
-            cpu_threads = int(data.get('cpu_threads'))
-            processor_brand = data.get('processor_brand')
-            processor_gen = int(data.get('processor_gen'))
-            processor_version = data.get('processor_version')
+            brand = request.form['brand']
+            spec_rating = int(request.form['spec_rating'])
+            Ram = int(request.form['Ram'])
+            ROM = int(request.form['ROM'])
+            ROM_type = int(request.form['ROM_type'])
+            display_size = float(request.form['display_size'])
+            resolution_width = float(request.form['resolution_width'])
+            resolution_height = float(request.form['resolution_height'])
+            OS = request.form['OS']
+            warranty = int(request.form['warranty'])
+            gpu_type = request.form['gpu_type']
+            cpu_core = int(request.form['cpu_core'])
+            cpu_threads = int(request.form['cpu_threads'])
+            processor_brand = request.form['processor_brand']
+            processor_gen = int(request.form['processor_gen'])
+            processor_version = request.form['processor_version']
             logger.info("after")
 
 
             data = [brand,spec_rating,Ram,ROM,ROM_type,display_size,resolution_width,resolution_height,OS,
                     warranty,gpu_type,cpu_core,cpu_threads,processor_brand,processor_gen,processor_version]
             
-            
+            print(data)
             obj = PredictionPipeline()
             predicted = int(obj.predict(data)[0])
-
-
-            # return render_template('results.html', prediction = str(predicted))
             print(predicted)
-            return jsonify({"success":True,"predicted":predicted})
+
+
+            return render_template('result.html', prediction = str(predicted))
+            # print(predicted)
+            # return jsonify({"success":True,"predicted":predicted})
 
         except Exception as e:
             print('The Exception message is: ',e)

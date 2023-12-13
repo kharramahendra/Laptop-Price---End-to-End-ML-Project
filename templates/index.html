@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laptop Price Prediction</title>
+  <link rel="icon" href="/static/dist/assets/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="/static/dist/styles.css" />
+  <link href="https://unpkg.com/tailwindcss@^2/static/dist/tailwind.min.css" rel="stylesheet">
+  <script src="/static/dist/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.29.0/static/dist/apexcharts.min.css" />
+</head>
+
+<body class="bg-secondary">
+  <!-- Navigation -->
+  <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+    <div class="flex items-center">
+      <svg version="1.1" id="svg2" class="h-6 w-6" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" sodipodi:docname="laptop-alt.svg" inkscape:version="0.48.4 r9939" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200.00 1200.00" enable-background="new 0 0 1200 1200" xml:space="preserve" fill="#000000" stroke="#000000" stroke-width="0.012"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <sodipodi:namedview inkscape:cy="597.25781" inkscape:cx="809.57559" inkscape:zoom="0.52678571" showgrid="false" id="namedview30" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff" inkscape:current-layer="svg2" inkscape:window-maximized="1" inkscape:window-y="24" inkscape:window-height="876" inkscape:window-width="1535" inkscape:pageshadow="2" inkscape:pageopacity="0" inkscape:window-x="65"> </sodipodi:namedview> <path id="path13114" inkscape:connector-curvature="0" d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600 s600-268.629,600-600S931.371,0,600,0z M289.966,323.877h620.068v405.835H289.966V323.877L289.966,323.877z M366.87,397.852v257.959 h466.26V397.852H366.87z M212.256,766.626h775.488v68.628l-39.404,40.869H251.66l-39.404-40.869V766.626L212.256,766.626z M528.076,789.111v62.183h143.848v-62.183H528.076z"></path> </g></svg>
+      <span class="font-bold mx-2">LAPTOP PRICE PREDICTION</span>
+      <!-- <img src='/static/dist/assets/Logo_black.svg' alt="Logo" class="h-4" /> -->
+    </div>
+    <ul class="font-montserrat items-center hidden md:flex">
+      <!-- <li class="mx-3 ">
+        <a class="growing-underline" href="https://github.com/kharramahendra/Laptop-Price---End-to-End-ML-Project">
+          Github
+        </a>
+      </li> -->
+      <li class="growing-underline mx-3">
+        <a href="#mlmodel">Model</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="#analysis">Analysis</a>
+      </li>
+    </ul>
+    <div class="font-montserrat hidden md:block">
+      <!-- <button class="mr-6">Login</button> -->
+      <a href="https://github.com/kharramahendra/Laptop-Price---End-to-End-ML-Project" class="flex py-2 px-4 text-white bg-black rounded-3xl">
+        <svg fill="#ffffff" class="h-5 w-5 mr-1 my-auto" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>github</title> <path d="M16 1.375c-8.282 0-14.996 6.714-14.996 14.996 0 6.585 4.245 12.18 10.148 14.195l0.106 0.031c0.75 0.141 1.025-0.322 1.025-0.721 0-0.356-0.012-1.3-0.019-2.549-4.171 0.905-5.051-2.012-5.051-2.012-0.288-0.925-0.878-1.685-1.653-2.184l-0.016-0.009c-1.358-0.93 0.105-0.911 0.105-0.911 0.987 0.139 1.814 0.718 2.289 1.53l0.008 0.015c0.554 0.995 1.6 1.657 2.801 1.657 0.576 0 1.116-0.152 1.582-0.419l-0.016 0.008c0.072-0.791 0.421-1.489 0.949-2.005l0.001-0.001c-3.33-0.375-6.831-1.665-6.831-7.41-0-0.027-0.001-0.058-0.001-0.089 0-1.521 0.587-2.905 1.547-3.938l-0.003 0.004c-0.203-0.542-0.321-1.168-0.321-1.821 0-0.777 0.166-1.516 0.465-2.182l-0.014 0.034s1.256-0.402 4.124 1.537c1.124-0.321 2.415-0.506 3.749-0.506s2.625 0.185 3.849 0.53l-0.1-0.024c2.849-1.939 4.105-1.537 4.105-1.537 0.285 0.642 0.451 1.39 0.451 2.177 0 0.642-0.11 1.258-0.313 1.83l0.012-0.038c0.953 1.032 1.538 2.416 1.538 3.937 0 0.031-0 0.061-0.001 0.091l0-0.005c0 5.761-3.505 7.029-6.842 7.398 0.632 0.647 1.022 1.532 1.022 2.509 0 0.093-0.004 0.186-0.011 0.278l0.001-0.012c0 2.007-0.019 3.619-0.019 4.106 0 0.394 0.262 0.862 1.031 0.712 6.028-2.029 10.292-7.629 10.292-14.226 0-8.272-6.706-14.977-14.977-14.977-0.006 0-0.013 0-0.019 0h0.001z"></path> </g></svg>
+
+        Github
+      </a>
+    </div>
+    <div id="showMenu" class="md:hidden">
+      <img src='/static/dist/assets/logos/Menu.svg' alt="Menu icon" />
+    </div>
+  </nav>
+  <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-secondary z-20 animate-fade-in-down">
+    <div id="hideMenu" class="flex justify-end">
+      <img src='/static/dist/assets/logos/Cross.svg' alt="" class="h-16 w-16" />
+    </div>
+    <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+      <li class="my-6">
+        <a href="https://github.com/kharramahendra/Laptop-Price---End-to-End-ML-Project">Github</a>
+      </li>
+      <li class="my-6">
+        <a href="#mlmodel">Model</a>
+      </li>
+      <li class="my-6">
+        <a href="#analysis">Analysis</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <section
+    class="pt-24 md:mt-0 md:h-screen flex flex-col justify-center text-center md:text-left md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
+    <div class="md:flex-1 md:mr-10">
+      <h1 class="font-pt-serif text-5xl font-bold mb-7">
+        Laptop Price Prediction
+        <span class="bg-underline1 bg-left-bottom bg-no-repeat pb-2 bg-100%">
+          and Analysis
+        </span>
+      </h1>
+      <p class="font-pt-serif font-normal mb-7">
+        Welcome to Laptop Price Predictor! 🚀 Whether
+        you're a tech enthusiast or a savvy shopper, our advanced machine learning model is here to make
+        your laptop buying decision a breeze.
+      </p>
+      <div class="font-montserrat">
+        <a href="https://github.com/kharramahendra/Laptop-Price---End-to-End-ML-Project"
+          class="bg-black px-6 py-4 rounded-lg border-2 border-black  border-solid text-white mr-2 mb-2">
+          <!-- <svg fill="#ffffff" class="h-5 w-5 mr-1 my-auto" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>github</title> <path d="M16 1.375c-8.282 0-14.996 6.714-14.996 14.996 0 6.585 4.245 12.18 10.148 14.195l0.106 0.031c0.75 0.141 1.025-0.322 1.025-0.721 0-0.356-0.012-1.3-0.019-2.549-4.171 0.905-5.051-2.012-5.051-2.012-0.288-0.925-0.878-1.685-1.653-2.184l-0.016-0.009c-1.358-0.93 0.105-0.911 0.105-0.911 0.987 0.139 1.814 0.718 2.289 1.53l0.008 0.015c0.554 0.995 1.6 1.657 2.801 1.657 0.576 0 1.116-0.152 1.582-0.419l-0.016 0.008c0.072-0.791 0.421-1.489 0.949-2.005l0.001-0.001c-3.33-0.375-6.831-1.665-6.831-7.41-0-0.027-0.001-0.058-0.001-0.089 0-1.521 0.587-2.905 1.547-3.938l-0.003 0.004c-0.203-0.542-0.321-1.168-0.321-1.821 0-0.777 0.166-1.516 0.465-2.182l-0.014 0.034s1.256-0.402 4.124 1.537c1.124-0.321 2.415-0.506 3.749-0.506s2.625 0.185 3.849 0.53l-0.1-0.024c2.849-1.939 4.105-1.537 4.105-1.537 0.285 0.642 0.451 1.39 0.451 2.177 0 0.642-0.11 1.258-0.313 1.83l0.012-0.038c0.953 1.032 1.538 2.416 1.538 3.937 0 0.031-0 0.061-0.001 0.091l0-0.005c0 5.761-3.505 7.029-6.842 7.398 0.632 0.647 1.022 1.532 1.022 2.509 0 0.093-0.004 0.186-0.011 0.278l0.001-0.012c0 2.007-0.019 3.619-0.019 4.106 0 0.394 0.262 0.862 1.031 0.712 6.028-2.029 10.292-7.629 10.292-14.226 0-8.272-6.706-14.977-14.977-14.977-0.006 0-0.013 0-0.019 0h0.001z"></path> </g></svg> -->
+
+          Github
+        </a>
+        <a href="#mlmodel" class="px-6 py-4 border-2 border-black border-solid rounded-lg">
+          ML Model
+        </a>
+      </div>
+    </div>
+    <div class="flex justify-around md:block mt-8 md:mt-0 md:flex-1">
+      <div class="relative">
+        <img src='/static/dist/assets/Highlight1.svg' alt="" class="absolute -top-16 -left-10" />
+      </div>
+      <img src='/static/dist/assets/MacBook Pro.png' alt="Macbook" />
+      <div class="relative">
+        <img src='/static/dist/assets/Highlight2.svg' alt="" class="absolute -bottom-10 -right-6" />
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-black text-white sectionSize">
+    <div>
+      <h2 class="secondaryTitle bg-underline2 bg-100%">How it works</h2>
+    </div>
+    <div class="flex flex-col md:flex-row">
+      <div class="flex-1 mx-8 flex flex-col items-center my-4">
+        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+          1
+        </div>
+        <h3 class="font-montserrat font-medium text-xl mb-2">Customize Your Laptop</h3>
+        <p class="text-center font-montserrat">
+          Choose the specifications you want for your laptop, such as processor, RAM, storage, and more.
+        </p>
+      </div>
+      <div class="flex-1 mx-8 flex flex-col items-center my-4">
+        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+          2
+        </div>
+        <h3 class="font-montserrat font-medium text-xl mb-2">Instant Price Prediction</h3>
+        <p class="text-center font-montserrat">
+          Our machine learning model analyzes your configuration and predicts the laptop's price accurately.
+        </p>
+      </div>
+      <div class="flex-1 mx-8 flex flex-col items-center my-4">
+        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+          3
+        </div>
+        <h3 class="font-montserrat font-medium text-xl mb-2">Get Your Quote</h3>
+        <p class="text-center font-montserrat">
+          Receive the estimated price instantly and explore further options or adjustments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ml model -->
+  <section class="bg-secondary max-w-6xl mx-auto mt-16">
+    <div class="mx-auto">
+      <h2 class="secondaryTitle bg-underline3 max-w-xs mx-auto bg-100%">ML Model</h2>
+    </div>
+    <section class="p-6 mx-auto rounded-md   " id="mlmodel">
+      <!-- <h1 class="text-xl font-bold text-black capitalize dark:text-gray-800">Laptop Price Prediction (ML Model)</h1> -->
+      <form action="/predict" method="post">
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+          <!-- brand -->
+          <div>
+            <label class="text-gray-800 " for="brand">Laptop Brand</label>
+            <select onChange={handleChange} id="brand" name="brand" required
+              class="block w-full px-4 bg-secondary py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="HP">HP</option>
+              <option value="Lenovo">Lenovo</option>
+              <option value="Asus">Asus</option>
+              <option value="Dell">Dell</option>
+              <option value="Acer">Acer</option>
+              <option value="MSI">MSI</option>
+              <option value="Samsung">Samsung</option>
+              <option value="Apple">Apple</option>
+              <option value="Infinix">Infinix</option>
+              <option value="LG">LG</option>
+              <option value="Xiaomi">Xiaomi</option>
+              <option value="Gigabyte">Gigabyte</option>
+              <option value="Fujitsu">Fujitsu</option>
+              <option value="Zebronics">Zebronics</option>
+              <option value="Ultimus">Ultimus</option>
+              <option value="Tecno">Tecno</option>
+              <option value="Wings">Wings</option>
+              <option value="Chuwi">Chuwi</option>
+              <option value="Realme">Realme</option>
+              <option value="Microsoft">Microsoft</option>
+              <option value="AXL">AXL</option>
+              <option value="Huawei">Huawei</option>
+              <option value="Honor">Honor</option>
+              <option value="Walker">Walker</option>
+              <option value="Vaio">Vaio</option>
+              <option value="Avita">Avita</option>
+              <option value="Primebook">Primebook</option>
+              <option value="Ninkear">Ninkear</option>
+              <option value="Razer">Razer</option>
+              <option value="iBall">iBall</option>
+            </select>
+          </div>
+
+          <!-- spect rating -->
+          <div>
+            <label class="text-gray-800 " for="spec_rating">Spect Rating (70 is good)</label>
+            <input onChange={handleChange} id="spec_rating" name="spec_rating" type="number" max="100" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring" />
+          </div>
+
+          <!-- operating system -->
+          <div>
+            <label class="text-gray-800 " for="OS">Operating System</label>
+            <select onChange={handleChange} id="OS" name="OS" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="Windows 11 OS">Windows 11 OS</option>
+              <option value="Windows 10 OS">Windows 10 OS</option>
+              <option value="DOS OS">DOS OS</option>
+              <option value="Mac OS">Mac OS</option>
+              <option value="Chrome OS">Chrome OS</option>
+              <option value="Windows OS">Windows OS</option>
+              <option value="Ubuntu OS">Ubuntu OS</option>
+              <option value="DOS 3.0 OS">DOS 3.0 OS</option>
+              <option value="Mac 10.15.3 OS">Mac 10.15.3 OS</option>
+              <option value="Android 11 OS">Android 11 OS</option>
+              <option value="Mac Catalina OS">Mac Catalina OS</option>
+              <option value="Mac High Sierra OS">Mac High Sierra OS</option>
+            </select>
+          </div>
+
+          <!-- warranty -->
+          <div>
+            <label class="text-gray-800 " for="warranty">Warranty</label>
+            <select onChange={handleChange} id="warranty" name="warranty" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="1">1 Year</option>
+              <option value="2">2 Year</option>
+              <option value="3">3 Year</option>
+              <option value="0">No warranty</option>
+            </select>
+          </div>
+
+          <!-- processor brand -->
+          <div>
+            <label class="text-gray-800 " for="processor_brand">Processor Brand</label>
+            <select onChange={handleChange} id="processor_brand" name="processor_brand" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="Intel">Intel</option>
+              <option value="AMD">AMD</option>
+              <option value="Apple">Apple</option>
+            </select>
+          </div>
+
+          <!-- processor version -->
+          <div>
+            <label class="text-gray-800 " for="processor_version">Processor Version (select
+              according to brand)</label>
+            <select onChange={handleChange} id="processor_version" name="processor_version" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="i5">i5</option>
+              <option value="i7">i7</option>
+              <option value="5">5</option>
+              <option value="i3">i3</option>
+              <option value="7">7</option>
+              <option value="i9">i9</option>
+              <option value="3">3</option>
+              <option value="9">9</option>
+              <option value="M1">M1</option>
+              <option value="M2">M2</option>
+              <option value="Silver">Silver</option>
+              <option value="M2 Pro">M2 Pro</option>
+              <option value="N4020">N4020</option>
+              <option value="">(Empty)</option>
+              <option value="3050U">3050U</option>
+              <option value="M2 Max">M2 Max</option>
+              <option value="N5100">N5100</option>
+              <option value="7040">7040</option>
+            </select>
+          </div>
+
+          <!--processor gen  -->
+          <div>
+            <label class="text-gray-800 " for="processor_gen">Processor Gen (select
+              according to Processor)</label>
+            <select onChange={handleChange} id="processor_gen" name="processor_gen" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="11">11</option>
+              <option value="7">7</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="6">6</option>
+              <option value="3">3</option>
+              <option value="1">1</option>
+              <option value="8">8</option>
+              <option value="4">4</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <!-- gpu type -->
+          <div>
+            <label class="text-gray-800 " for="gpu_type">GPU Type</label>
+            <select onChange={handleChange} id="gpu_type" name="gpu_type" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="NVIDIA">NVIDIA</option>
+              <option value="Intel">Intel</option>
+              <option value="Radeon">Radeon</option>
+              <option value="Iris Xe Graphics">Iris Xe Graphics</option>
+              <option value="UHD Graphics">UHD Graphics</option>
+              <option value="AMD">AMD</option>
+              <option value="Graphics">Graphics</option>
+              <option value="Mali G72">Mali G72</option>
+              <option value="HD Graphics">HD Graphics</option>
+            </select>
+          </div>
+
+          <!-- cpu cores -->
+          <div>
+            <label class="text-gray-800 " for="cpu_core">CPU Cores</label>
+            <select onChange={handleChange} id="cpu_core" name="cpu_core" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="4">4</option>
+              <option value="2">2</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="24">24</option>
+              <option value="16">16</option>
+              <option value="5">5</option>
+              <option value="0">0</option>
+            </select>
+          </div>
+
+          <!-- cpu threads -->
+          <div>
+            <label class="text-gray-800 " for="cpu_threads">CPU Threads</label>
+            <select onChange={handleChange} id="cpu_threads" name="cpu_threads" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="12">12</option>
+              <option value="16">16</option>
+              <option value="8">8</option>
+              <option value="4">4</option>
+              <option value="20">20</option>
+              <option value="2">2</option>
+              <option value="0">0</option>
+              <option value="32">32</option>
+              <option value="24">24</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+
+          <!-- RAM -->
+          <div>
+            <label class="text-gray-800 " for="Ram">RAM</label>
+            <select onChange={handleChange} id="Ram" name="Ram" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="16">16GB</option>
+              <option value="8">8GB</option>
+              <option value="32">32GB</option>
+              <option value="4">4GB</option>
+              <option value="64">64GB</option>
+              <option value="12">12GB</option>
+              <option value="2">2GB</option>
+            </select>
+          </div>
+
+          <!-- ROM -->
+          <div>
+            <label class="text-gray-800 " for="ROM">ROM</label>
+            <select onChange={handleChange} id="ROM" name="ROM" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="512">512GB</option>
+              <option value="1024">1024GB</option>
+              <option value="256">256GB</option>
+              <option value="128">128GB</option>
+              <option value="2048">2048GB</option>
+              <option value="64">64GB</option>
+              <option value="32">32GB</option>
+            </select>
+          </div>
+
+          <!-- ROM type -->
+          <div>
+            <label class="text-gray-800 " for="ROM_type">ROM type</label>
+            <select onChange={handleChange} id="ROM_type" name="ROM_type" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="1">SSD</option>
+              <option value="0">HDD</option>
+            </select>
+          </div>
+
+          <!-- screen size -->
+          <div>
+            <label class="text-gray-800 " for="display_size">Display Size</label>
+            <select onChange={handleChange} id="display_size" name="display_size" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="11.6">11.6 inches</option>
+              <option value="13.3">13.3 inches</option>
+              <option value="13.4">13.4 inches</option>
+              <option value="13.5">13.5 inches</option>
+              <option value="13.6">13.6 inches</option>
+              <option value="14.0">14.0 inches</option>
+              <option value="14.1">14.1 inches</option>
+              <option value="14.2">14.2 inches</option>
+              <option value="15.0">15.0 inches</option>
+              <option value="15.3">15.3 inches</option>
+              <option value="15.56">15.56 inches</option>
+              <option value="15.6">15.6 inches</option>
+              <option value="16.0">16.0 inches</option>
+              <option value="16.1">16.1 inches</option>
+              <option value="16.2">16.2 inches</option>
+              <option value="17.0">17.0 inches</option>
+              <option value="17.3">17.3 inches</option>
+              <option value="18.0">18.0 inches</option>
+            </select>
+          </div>
+
+          <!-- res. width -->
+          <div>
+            <label class="text-gray-800 " for="resolution_width">Resolution Width</label>
+            <select onChange={handleChange} id="resolution_width" name="resolution_width" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="1080.0">1080 pixels</option>
+              <option value="1200.0">1200 pixels</option>
+              <option value="1280.0">1280 pixels</option>
+              <option value="1366.0">1366 pixels</option>
+              <option value="1440.0">1440 pixels</option>
+              <option value="1300.0">1300 pixels</option>
+              <option value="1920.0">1920 pixels</option>
+              <option value="2240.0">2240 pixels</option>
+              <option value="2256.0">2256 pixels</option>
+              <option value="2496.0">2496 pixels</option>
+              <option value="2560.0">2560 pixels</option>
+              <option value="2880.0">2880 pixels</option>
+              <option value="3024.0">3024 pixels</option>
+              <option value="3072.0">3072 pixels</option>
+              <option value="3200.0">3200 pixels</option>
+              <option value="3456.0">3456 pixels</option>
+              <option value="3840.0">3840 pixels</option>
+              <option value="2160.0">2160 pixels</option>
+            </select>
+          </div>
+
+          <!-- res. height -->
+          <div>
+            <label class="text-gray-800 " for="resolution_height">Resolution Height</label>
+            <select onChange={handleChange} id="resolution_height" name="resolution_height" required
+              class="block w-full px-4 py-2 mt-2 text-gray-800  border rounded-md bg-secondary   focus:outline-none focus:ring">
+              <option value="" disabled selected>Select an option</option>
+              <option value="768.0">768 pixels</option>
+              <option value="1024.0">1024 pixels</option>
+              <option value="1080.0">1080 pixels</option>
+              <option value="1200.0">1200 pixels</option>
+              <option value="1400.0">1400 pixels</option>
+              <option value="1440.0">1440 pixels</option>
+              <option value="1504.0">1504 pixels</option>
+              <option value="1300.0">1300 pixels</option>
+              <option value="1620.0">1620 pixels</option>
+              <option value="1660.0">1660 pixels</option>
+              <option value="1664.0">1664 pixels</option>
+              <option value="1800.0">1800 pixels</option>
+              <option value="1864.0">1864 pixels</option>
+              <option value="1920.0">1920 pixels</option>
+              <option value="1964.0">1964 pixels</option>
+              <option value="2000.0">2000 pixels</option>
+              <option value="2160.0">2160 pixels</option>
+              <option value="2234.0">2234 pixels</option>
+              <option value="2400.0">2400 pixels</option>
+              <option value="2560.0">2560 pixels</option>
+              <option value="3456.0">3456 pixels</option>
+              <option value="1280.0">1280 pixels</option>
+            </select>
+          </div>
+
+
+        </div>
+
+        <div class="flex justify-center mt-6">
+          <button type='submit'
+            class="bg-black px-8 py-3 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2">Predict</button>
+
+        </div>
+      </form>
+    </section>
+  </section>
+
+
+
+
+
+  <!-- ml model actual vs predicted -->
+  <section class=" mx-auto mt-16">
+    <div class="mx-auto">
+      <h2 class="secondaryTitle  max-w-md mx-auto bg-100%">Model Accuracy</h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto w-full rounded-lg shadow p-4 md:p-6">
+      <div class="flex justify-between mb-5">
+        <div>
+          <h5 class="leading-none text-2xl font-semibold text-black pb-2 font-montserrat">Predicted vs Actual</h5>
+          <p class="text-base font-normal text-gray-700">For some test data</p>
+        </div>
+        <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-200  text-center">
+          83%
+          <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 10 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 13V1m0 0L1 5m4-4 4 4" />
+          </svg>
+        </div>
+      </div>
+      <div id="data-labels-chart"></div>
+      <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5">
+        <div class="flex justify-between items-center pt-5">
+
+
+          <!-- <a href="#"
+                class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+                Sales Report
+                <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 9 4-4-4-4" />
+                </svg>
+            </a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- analysis -->
+  <div class="py-20 " id="analysis">
+    <div class="mx-auto">
+      <h2 class="secondaryTitle bg-underline3 max-w-xs  mx-auto bg-100%">Analysis</h2>
+    </div>
+    <!-- analysis -->
+    <div class="grid grid-cols-1 max-w-7xl mx-auto gap-6 mt-4 lg:grid-cols-2">
+
+      <div class="max-w-4xl mx-auto w-full  rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+
+            </div>
+            <div>
+              <h5 class="leading-none text-2xl font-semibold text-gray-900 font-montserrat dark:text-white pb-1">
+                Brand-wise
+              </h5>
+              <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Average Laptop Costs</p>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+
+        <div id="column-chart"></div>
+        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+          <div class="flex justify-between items-center pt-5">
+          </div>
+        </div>
+      </div>
+      <div class="max-w-4xl w-full mx-auto  rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+
+        <div class="flex justify-between items-start w-full">
+          <div class="flex-col items-center">
+            <div class="flex items-center mb-1">
+              <h5 class="text-2xl font-montserrat font-semibold leading-none text-gray-900 dark:text-white me-1">Market
+                captured
+              </h5>
+            </div>
+
+          </div>
+          <div class="flex justify-end items-center">
+          </div>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="py-6" id="pie-chart"></div>
+
+        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+          <div class="flex justify-between items-center pt-5">
+
+          </div>
+        </div>
+      </div>
+      <div class="max-w-4xl w-full mx-auto rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+
+            </div>
+            <div>
+              <h5 class="leading-none text-2xl font-montserrat font-semibold text-gray-900 dark:text-white pb-1">RAM
+                Impact:
+              </h5>
+              <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Average Laptop Costs</p>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+
+        <div id="ramaverage"></div>
+        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+          <div class="flex justify-between items-center pt-5">
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-4xl w-full mx-auto  rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+
+            </div>
+            <div>
+              <h5 class="leading-none text-2xl font-semibold font-montserrat text-gray-900 dark:text-white pb-1">GPU
+                Type Impact:
+              </h5>
+              <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Average Laptop Costs</p>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+
+        <div id="gpuaverage"></div>
+        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+          <div class="flex justify-between items-center pt-5">
+            <!-- Button -->
+
+
+            <!-- <a href="#"
+                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+                    Leads Report
+                    <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                </a> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <section class="text-gray-600 body-font bg-black  overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
+        <img alt="palm2chat" class="lg:w-2/5 my-auto mr-auto h-full  object-cover object-center"
+          src="/static/dist/assets/profilepic.png" />
+        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+
+          <span
+            class="inline-block font-montserrat py-1 px-2 text-white  font-semibold  text-lg font-montserrattracking-widest">Project
+            Developer</span>
+          <h2 class="sm:text-3xl text-2xl  font-satisfy font-semibold text-white mt-4 mb-4">Mahedra Kharra</h2>
+          <p class="leading-relaxed mb-8 font-medium text-md text-white">
+            I'm a passionate learner with a strong interest in data science. I'm currently focused on creating
+            real-world projects using LLMs, transformers, and advanced machine learning techniques. I also have
+            experience in web development, using Next.js, Django, and React to build data-driven web applications.
+          </p>
+
+
+
+          <div class="flex items-center flex-wrap pb-4 mb-4  mt-auto w-full">
+            <div class="flex items-center  space-x-2 sm:mt-0">
+
+              <a type="button" href='https://www.linkedin.com/in/mahendra-kharra/' target='blank' data-te-ripple-init
+                data-te-ripple-color="light"
+                class=" mb-2 inline-block rounded-md  text-lg font-medium uppercase leading-normal text-black shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                <svg fill="#ffffff" class="h-6 w-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-143 145 512 512" xml:space="preserve">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g>
+                      <path
+                        d="M329,145h-432c-22.1,0-40,17.9-40,40v432c0,22.1,17.9,40,40,40h432c22.1,0,40-17.9,40-40V185C369,162.9,351.1,145,329,145z M339,617c0,5.5-4.5,10-10,10h-432c-5.5,0-10-4.5-10-10V185c0-5.5,4.5-10,10-10h432c5.5,0,10,4.5,10,10V617z">
+                      </path>
+                      <rect x="-8.5" y="348.4" width="49.9" height="159.7"></rect>
+                      <path
+                        d="M177.7,346.9c-28.6,0-46.5,15.6-49.8,26.6v-25.1H71.8c0.7,13.3,0,159.7,0,159.7h56.1v-86.3c0-4.9-0.2-9.7,1.2-13.1 c3.8-9.6,12.1-19.6,27-19.6c19.5,0,28.3,14.8,28.3,36.4v82.6H241v-88.8C241,369.9,213.2,346.9,177.7,346.9z">
+                      </path>
+                      <path
+                        d="M15.4,273c-18.4,0-30.5,11.9-30.5,27.7c0,15.5,11.7,27.7,29.8,27.7h0.4c18.8,0,30.5-12.3,30.4-27.7 C45.1,284.9,33.8,273,15.4,273z">
+                      </path>
+                    </g>
+                  </g>
+                </svg> </a>
+
+              </a>
+
+              <a type="button" href='https://github.com/kharramahendra' target='blank' data-te-ripple-init
+                data-te-ripple-color="light"
+                class="mb-2 inline-block rounded-md  text-lg font-medium uppercase leading-normal text-black shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                <svg fill="#ffffff" class="h-6 w-6" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>github</title> <path d="M16 1.375c-8.282 0-14.996 6.714-14.996 14.996 0 6.585 4.245 12.18 10.148 14.195l0.106 0.031c0.75 0.141 1.025-0.322 1.025-0.721 0-0.356-0.012-1.3-0.019-2.549-4.171 0.905-5.051-2.012-5.051-2.012-0.288-0.925-0.878-1.685-1.653-2.184l-0.016-0.009c-1.358-0.93 0.105-0.911 0.105-0.911 0.987 0.139 1.814 0.718 2.289 1.53l0.008 0.015c0.554 0.995 1.6 1.657 2.801 1.657 0.576 0 1.116-0.152 1.582-0.419l-0.016 0.008c0.072-0.791 0.421-1.489 0.949-2.005l0.001-0.001c-3.33-0.375-6.831-1.665-6.831-7.41-0-0.027-0.001-0.058-0.001-0.089 0-1.521 0.587-2.905 1.547-3.938l-0.003 0.004c-0.203-0.542-0.321-1.168-0.321-1.821 0-0.777 0.166-1.516 0.465-2.182l-0.014 0.034s1.256-0.402 4.124 1.537c1.124-0.321 2.415-0.506 3.749-0.506s2.625 0.185 3.849 0.53l-0.1-0.024c2.849-1.939 4.105-1.537 4.105-1.537 0.285 0.642 0.451 1.39 0.451 2.177 0 0.642-0.11 1.258-0.313 1.83l0.012-0.038c0.953 1.032 1.538 2.416 1.538 3.937 0 0.031-0 0.061-0.001 0.091l0-0.005c0 5.761-3.505 7.029-6.842 7.398 0.632 0.647 1.022 1.532 1.022 2.509 0 0.093-0.004 0.186-0.011 0.278l0.001-0.012c0 2.007-0.019 3.619-0.019 4.106 0 0.394 0.262 0.862 1.031 0.712 6.028-2.029 10.292-7.629 10.292-14.226 0-8.272-6.706-14.977-14.977-14.977-0.006 0-0.013 0-0.019 0h0.001z"></path> </g></svg>
+              </a>
+              <a type="button" href='https://instagram.com/mahendra_kharra/' target='blank' data-te-ripple-init
+                data-te-ripple-color="light"
+                class=" mb-2 inline-block rounded-md text-xs font-medium uppercase leading-normal text-black shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#ffffff" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+ 
+  <!-- Footer -->
+  <section class="bg-black sectionSize">
+    <div class="mb-4">
+      <svg version="1.1" class="mx-auto mb-3 h-8 w-8" id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" sodipodi:docname="laptop-alt.svg" inkscape:version="0.48.4 r9939" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200.00 1200.00" enable-background="new 0 0 1200 1200" xml:space="preserve" fill="#ffffff" stroke="#ffffff" stroke-width="0.012"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <sodipodi:namedview inkscape:cy="597.25781" inkscape:cx="809.57559" inkscape:zoom="0.52678571" showgrid="false" id="namedview30" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" bordercolor="#666666" pagecolor="#ffffff" inkscape:current-layer="svg2" inkscape:window-maximized="1" inkscape:window-y="24" inkscape:window-height="876" inkscape:window-width="1535" inkscape:pageshadow="2" inkscape:pageopacity="0" inkscape:window-x="65"> </sodipodi:namedview> <path id="path13114" inkscape:connector-curvature="0" d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600 s600-268.629,600-600S931.371,0,600,0z M289.966,323.877h620.068v405.835H289.966V323.877L289.966,323.877z M366.87,397.852v257.959 h466.26V397.852H366.87z M212.256,766.626h775.488v68.628l-39.404,40.869H251.66l-39.404-40.869V766.626L212.256,766.626z M528.076,789.111v62.183h143.848v-62.183H528.076z"></path> </g></svg>
+      <span class="font-bold mx-auto mt-3 text-white mx-2">LAPTOP PRICE </span>
+
+      <!-- <img src='/static/dist/assets/Logo_white.svg' alt="Logo" class="h-4" /> -->
+    </div>
+    <!-- <div class="flex mb-8">
+      <a href="#">
+        <img src='/static/dist/assets/logos/Facebook.svg' alt="Facebook logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='/static/dist/assets/logos/Youtube.svg' alt="Youtube logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='/static/dist/assets/logos/Instagram.svg' alt="Instagram logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='/static/dist/assets/logos/Twitter.svg' alt="Twitter logo" class="mx-4" />
+      </a>
+    </div> -->
+    <div class="text-white font-montserrat text-sm">
+      © 2021. All rights reserved
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    // ApexCharts options and config
+    window.addEventListener("load", function () {
+      const options = {
+        colors: ["#1A56DB", "#FDBA8C"],
+        series: [
+          {
+            name: "Average Price",
+            color: "#1A56DB",
+            data: [
+              { x: "Apple", y: 174230 },
+              { x: "HP", y: 80872 },
+              { x: "Dell", y: 91150 },
+              { x: "Lenovo", y: 70060 },
+              { x: "Asus", y: 75774 },
+              { x: "Acer", y: 58651 },
+              { x: "Infinix", y: 43990 },
+              { x: "Samsung", y: 117512 },
+              { x: "MSI", y: 100849 },
+              { x: "LG", y: 128618 },
+              { x: "others", y: 60485 },
+            ],
+          },
+          // {
+          //     name: "Social media",
+          //     color: "#FDBA8C",
+          //     data: [
+          //         { x: "Mon", y: 232 },
+          //         { x: "Tue", y: 113 },
+          //         { x: "Wed", y: 341 },
+          //         { x: "Thu", y: 224 },
+          //         { x: "Fri", y: 522 },
+          //         { x: "Sat", y: 411 },
+          //         { x: "Sun", y: 243 },
+          //     ],
+          // },
+        ],
+        chart: {
+          type: "bar",
+          height: "320px",
+          fontFamily: "Inter, sans-serif",
+          toolbar: {
+            show: false,
+          },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "70%",
+            borderRadiusApplication: "end",
+            borderRadius: 8,
+          },
+        },
+        tooltip: {
+          shared: true,
+          intersect: false,
+          style: {
+            fontFamily: "Inter, sans-serif",
+          },
+        },
+        states: {
+          hover: {
+            filter: {
+              type: "darken",
+              value: 1,
+            },
+          },
+        },
+        stroke: {
+          show: true,
+          width: 0,
+          colors: ["transparent"],
+        },
+        grid: {
+          show: false,
+          strokeDashArray: 4,
+          padding: {
+            left: 2,
+            right: 2,
+            top: -14
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          show: false,
+        },
+        xaxis: {
+          floating: false,
+          labels: {
+            show: true,
+            style: {
+              fontFamily: "Inter, sans-serif",
+              cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          show: false,
+        },
+        fill: {
+          opacity: 1,
+        },
+      }
+
+      if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("column-chart"), options);
+        chart.render();
+      }
+    });
+  </script>
+
+
+  <script>
+    // ApexCharts options and config
+    window.addEventListener("load", function () {
+      let options = {
+        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+        dataLabels: {
+          enabled: true,
+          // offsetX: 10,
+          style: {
+            cssClass: 'text-xs text-white font-medium'
+          },
+        },
+        grid: {
+          show: false,
+          strokeDashArray: 4,
+          padding: {
+            left: 16,
+            right: 16,
+            top: -26
+          },
+        },
+        series: [
+          {
+            name: "Actual Prices",
+            data: [83090, 57580, 58990, 27990, 74990, 56990, 53990, 57990, 72490, 45999],
+            color: "#1A56DB",
+          },
+          {
+            name: "Predicted Prices",
+            data: [75292, 63997, 63617, 30990, 67990, 63986, 43503, 56658, 80449, 44085],
+            color: "#7E3BF2",
+          },
+        ],
+        chart: {
+          height: "100%",
+          maxWidth: "100%",
+          type: "area",
+          fontFamily: "Inter, sans-serif",
+          dropShadow: {
+            enabled: false,
+          },
+          toolbar: {
+            show: false,
+          },
+        },
+        tooltip: {
+          enabled: true,
+          x: {
+            show: false,
+          },
+        },
+        legend: {
+          show: true
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            opacityFrom: 0.55,
+            opacityTo: 0,
+            shade: "#1C64F2",
+            gradientToColors: ["#1C64F2"],
+          },
+        },
+        stroke: {
+          width: 6,
+        },
+        xaxis: {
+          categories: ['Laptop 1', 'Laptop 2', 'Laptop 3', 'Laptop 4', 'Laptop 5', 'Laptop 6', 'Laptop 7', 'Laptop 8', 'Laptop 9', 'Laptop 10'],
+          labels: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          show: false,
+          labels: {
+            formatter: function (value) {
+              return '₹' + value;
+            }
+          }
+        },
+      }
+
+      if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("data-labels-chart"), options);
+        chart.render();
+      }
+    });
+  </script>
+
+
+  <script>
+    // ApexCharts options and config
+    window.addEventListener("load", function () {
+      const getChartOptions = () => {
+        return {
+          series: [186, 169, 157, 107, 84, 65, 57, 28, 16, 15, 9],
+          colors: ['#FF4E50', '#3C5A99', '#FC913A', '#0F7173', '#EC4E20', '#B5B5B5', '#F9D423', '#4ABDAC', '#56B4D3', '#A77DC2', '#4ABDAC'],
+          chart: {
+            height: 420,
+            width: "100%",
+            type: "pie",
+          },
+          stroke: {
+            colors: ["white"],
+            lineCap: "",
+          },
+          plotOptions: {
+            pie: {
+              labels: {
+                show: true,
+              },
+              size: "100%",
+              dataLabels: {
+                offset: -25
+              }
+            },
+          },
+          labels: ['HP', 'Lenovo', 'Asus', 'Dell', 'Acer', 'MSI', 'others', 'Samsung',
+            'Apple', 'Infinix', 'LG'],
+          dataLabels: {
+            enabled: true,
+            style: {
+              fontFamily: "Inter, sans-serif",
+            },
+          },
+          legend: {
+            position: "bottom",
+            fontFamily: "Inter, sans-serif",
+          },
+          yaxis: {
+            labels: {
+              formatter: function (value) {
+                return value + ""
+              },
+            },
+          },
+          xaxis: {
+            labels: {
+              formatter: function (value) {
+                return value + "%"
+              },
+            },
+            axisTicks: {
+              show: false,
+            },
+            axisBorder: {
+              show: false,
+            },
+          },
+        }
+      }
+
+      if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
+        chart.render();
+      }
+    });
+  </script>
+
+
+  <script>
+    // ApexCharts options and config
+    window.addEventListener("load", function () {
+      const options = {
+        colors: ["#800bd4", "#800bd4"],
+        series: [
+          {
+            name: "Average Price",
+            color: "#800bd4",
+            data: [
+              { x: "2GB", y: 9999 },
+              { x: "4GB", y: 19780 },
+              { x: "8GB", y: 49270 },
+              { x: "12GB", y: 42990 },
+              { x: "16GB", y: 91741 },
+              { x: "32GB", y: 238026 },
+              { x: "64GB", y: 430009 },
+            ],
+          },
+          // {
+          //     name: "Social media",
+          //     color: "#FDBA8C",
+          //     data: [
+          //         { x: "Mon", y: 232 },
+          //         { x: "Tue", y: 113 },
+          //         { x: "Wed", y: 341 },
+          //         { x: "Thu", y: 224 },
+          //         { x: "Fri", y: 522 },
+          //         { x: "Sat", y: 411 },
+          //         { x: "Sun", y: 243 },
+          //     ],
+          // },
+        ],
+        chart: {
+          type: "bar",
+          height: "320px",
+          fontFamily: "Inter, sans-serif",
+          toolbar: {
+            show: false,
+          },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "70%",
+            borderRadiusApplication: "end",
+            borderRadius: 8,
+          },
+        },
+        tooltip: {
+          shared: true,
+          intersect: false,
+          style: {
+            fontFamily: "Inter, sans-serif",
+          },
+        },
+        states: {
+          hover: {
+            filter: {
+              type: "darken",
+              value: 1,
+            },
+          },
+        },
+        stroke: {
+          show: true,
+          width: 0,
+          colors: ["transparent"],
+        },
+        grid: {
+          show: false,
+          strokeDashArray: 4,
+          padding: {
+            left: 2,
+            right: 2,
+            top: -14
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          show: false,
+        },
+        xaxis: {
+          floating: false,
+          labels: {
+            show: true,
+            style: {
+              fontFamily: "Inter, sans-serif",
+              cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          show: false,
+        },
+        fill: {
+          opacity: 1,
+        },
+      }
+
+      if (document.getElementById("ramaverage") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("ramaverage"), options);
+        chart.render();
+      }
+    });
+  </script>
+
+
+  <script>
+    // ApexCharts options and config
+    window.addEventListener("load", function () {
+      const options = {
+        colors: ["#1A56DB", "#FDBA8C"],
+        series: [
+          {
+            name: "Average Price",
+            color: "#eb10a2",
+            data: [
+              { x: "AMD", y: 39966 },
+              { x: "Graphics", y: 43526 },
+              { x: "Intel", y: 52967 },
+              { x: "Iris Xe Graphics", y: 88826 },
+              { x: "Mali G72", y: 238026 },
+              { x: "NVIDIA", y: 117711 },
+              { x: "Radeon", y: 50325 },
+              { x: "UHD Graphics", y: 45860 },
+            ],
+          },
+          // {
+          //     name: "Social media",
+          //     color: "#FDBA8C",
+          //     data: [
+          //         { x: "Mon", y: 232 },
+          //         { x: "Tue", y: 113 },
+          //         { x: "Wed", y: 341 },
+          //         { x: "Thu", y: 224 },
+          //         { x: "Fri", y: 522 },
+          //         { x: "Sat", y: 411 },
+          //         { x: "Sun", y: 243 },
+          //     ],
+          // },
+        ],
+        chart: {
+          type: "bar",
+          height: "320px",
+          fontFamily: "Inter, sans-serif",
+          toolbar: {
+            show: false,
+          },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "70%",
+            borderRadiusApplication: "end",
+            borderRadius: 8,
+          },
+        },
+        tooltip: {
+          shared: true,
+          intersect: false,
+          style: {
+            fontFamily: "Inter, sans-serif",
+          },
+        },
+        states: {
+          hover: {
+            filter: {
+              type: "darken",
+              value: 1,
+            },
+          },
+        },
+        stroke: {
+          show: true,
+          width: 0,
+          colors: ["transparent"],
+        },
+        grid: {
+          show: false,
+          strokeDashArray: 4,
+          padding: {
+            left: 2,
+            right: 2,
+            top: -14
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          show: false,
+        },
+        xaxis: {
+          floating: false,
+          labels: {
+            show: true,
+            style: {
+              fontFamily: "Inter, sans-serif",
+              cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+            }
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          show: false,
+        },
+        fill: {
+          opacity: 1,
+        },
+      }
+
+      if (document.getElementById("gpuaverage") && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById("gpuaverage"), options);
+        chart.render();
+      }
+    });
+  </script>
+
+
+
+</body>
+
+</html>

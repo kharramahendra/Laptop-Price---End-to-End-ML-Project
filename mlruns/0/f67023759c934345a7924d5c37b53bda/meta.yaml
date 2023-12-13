@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ten/Desktop/Laptop_Price/mlruns/0/f67023759c934345a7924d5c37b53bda/artifacts
+end_time: 1702455185913
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f67023759c934345a7924d5c37b53bda
+run_name: enthused-horse-474
+run_uuid: f67023759c934345a7924d5c37b53bda
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1702455179886
+status: 3
+tags: []
+user_id: ten
