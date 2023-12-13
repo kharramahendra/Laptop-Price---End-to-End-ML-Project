@@ -1,138 +1,90 @@
-# Laptop price predicion
+# Laptop Price Prediction - End to End Machine Learning project
 
+Welcome to the Laptop Price Prediction project! This machine learning model is designed to predict laptop prices based on various specifications. 
 
-## Workflows
 
-1. Update config.yaml
-2. Update schema.yaml
-3. Update params.yaml
-4. Update the entity
-5. Update the configuration manager in src config
-6. Update the components
-7. Update the pipeline 
-8. Update the main.py
-9. Update the app.py
+## Features Overview
 
+- **Brand**: The brand of the laptop.
+- **Spec Rating**: A numerical rating representing the laptop's specifications.
+- **RAM**: Random Access Memory size.
+- **ROM**: Storage capacity.
+- **ROM Type**: Type of storage (e.g., SSD, HDD).
+- **Display Size**: Size of the laptop display.
+- **Resolution Width/Height**: Screen resolution details.
+- **OS**: Operating System.
+- **Warranty**: Warranty period in months.
+- **GPU Type**: Graphics Processing Unit.
+- **CPU Core/Threads**: Number of CPU cores and threads.
+- **Processor Brand/Gen/Version**: Details about the laptop's processor.
 
+## Prediction Target
 
-MLFLOW_TRACKING_URI="your project uri" \
-MLFLOW_TRACKING_USERNAME="your name" \
-MLFLOW_TRACKING_PASSWORD="your password" \
-python script.py
+- **Price**: The predicted price of the laptop.
 
 
-<!-- for bash -->
-export MLFLOW_TRACKING_URI=project uri
+## 🛠 Skills
+Python, Machine learning, MLflow, AWS, Github Actions, Flask.
 
-export MLFLOW_TRACKING_USERNAME=your name 
 
-export MLFLOW_TRACKING_PASSWORD=password
+## How Project Works
 
+The model takes in these laptop specifications and crunches the numbers to provide an estimated price. The project is structured with components such as data ingestion, data validation, data transformation, model training, and model evaluation. With Flask, the model is deployed, allowing users to interact with it through a user-friendly interface.
 
-<!-- for windows  -->
-set MLFLOW_TRACKING_URI=project uri
 
-set MLFLOW_TRACKING_USERNAME=your name 
+## Project Screenshots
 
-set MLFLOW_TRACKING_PASSWORD=password
+![App Screenshot](https://raw.githubusercontent.com/kharramahendra/Data-Science-Learning-Codes/main/Screenshot%20(11).png)
 
+![App ](https://raw.githubusercontent.com/kharramahendra/Data-Science-Learning-Codes/main/Screenshot%20(12).png)
 
+![App ](https://raw.githubusercontent.com/kharramahendra/Data-Science-Learning-Codes/main/Screenshot%20(13).png)
 
-<!-- for notebook -->
-os.environ["MLFLOW_TRACKING_URI"]="uri"
-os.environ["MLFLOW_TRACKING_USERNAME"]="your name"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="your password"
+![App ](https://raw.githubusercontent.com/kharramahendra/Data-Science-Learning-Codes/main/Screenshot%20(14).png)
 
 
 
+## Get Started
 
+Explore the `src` directory to dive into the main package files and check out the various components. If you're interested in the nitty-gritty details, take a look at the data pipelines, entities, and configuration classes.
 
 
+## Documentation
 
+<!-- [Documentation](https://linktodocumentation) -->
 
 
+## Run Locally
 
-# AWS-CICD-Deployment-with-Github-Actions
+Clone the project
 
-## 1. Login to AWS console.
+```bash
+  git clone https://github.com/kharramahendra/Laptop-Price---End-to-End-ML-Project.git
+```
 
-## 2. Create IAM user for deployment
+Go to the project directory
 
-	#with specific access
 
-	1. EC2 access : It is virtual machine
+Install dependencies
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+```bash
+  pip install -r requirements.txt
+```
 
+Start the server
 
-	#Description: About the deployment
+```bash
+  python app.py
+```
 
-	1. Build docker image of the source code
+## 🚀 About Me
+I'm a passionate learner with a strong interest in data science. I'm currently focused on creating real-world projects using LLMs, transformers, and advanced machine learning techniques. I also have experience in web development, using Next.js, Django, and React to build data-driven web applications.
 
-	2. Push your docker image to ECR
 
-	3. Launch Your EC2 
+## 🔗 Links
 
-	4. Pull Your image from ECR in EC2
+[Live Project](http://43.206.157.66:8080/)
 
-	5. Lauch your docker image in EC2
 
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566373416292.dkr.ecr.ap-south-1.amazonaws.com/mlproj
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = us-east-1
-
-    AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = simple-app
-
-
-
-
-## About MLflow 
-MLflow
-
- - Its Production Grade
- - Trace all of your expriements
- - Logging & tagging your model
-
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mahendra-kharra/)
 
